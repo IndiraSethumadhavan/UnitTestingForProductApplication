@@ -20,7 +20,7 @@ namespace ProductApplication.Repositories
 
     public class ProductRepository : IProductRepository
     {
-
+      
         public void SaveProduct(List<Product> product)
         {
 
@@ -55,10 +55,7 @@ namespace ProductApplication.Repositories
 
         }
 
-        public bool SaveProduct(Product @object)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public IEnumerable<Product> GetProductsBySearch(string searchString)
         {
@@ -86,7 +83,7 @@ namespace ProductApplication.Repositories
 
         }
 
-        public void UpdateProduct(Product product)
+        public string UpdateProduct(Product product)
         {
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -96,12 +93,21 @@ namespace ProductApplication.Repositories
 
             List<Product> list = JsonConvert.DeserializeObject<List<Product>>(json);
 
-            Product found = list.Where(x => x.ProductId == product.ProductId).Single();
-            found.Name = "IodisedSalt";
-            found.Price = 100.01m;
-
-            var updatedJson = JsonConvert.SerializeObject(list);
-            File.WriteAllText(jsonPath, updatedJson);
+            
+            if(list.Where(x => x.ProductId == product.ProductId).Any())
+            {
+                Product found = list.Where(x => x.ProductId == product.ProductId).Single();
+                found.Name = "IodisedSalt";
+                found.Price = 100.01m;
+                var updatedJson = JsonConvert.SerializeObject(list);
+                File.WriteAllText(jsonPath, updatedJson);
+                return "Product is updated successfully";
+            }
+            else
+            {
+                return "ProductId is not found";
+            }
+            
             
         }
 
