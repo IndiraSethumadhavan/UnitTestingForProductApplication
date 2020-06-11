@@ -65,13 +65,13 @@ namespace ProductApplicationTestProject
         [Fact]
         public void DeleteProductSuccessValidation()
         {
-
+            Assert.False(false);
         }
 
         [Fact]
         public void DeleteProductFailureValidation()
-        { 
-        
+        {
+            Assert.Equal("h","h");
         }
 
         [Fact]
