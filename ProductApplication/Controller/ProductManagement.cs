@@ -150,13 +150,18 @@ namespace ProductApplication.Controller
         /// </summary>
         public void CreateProduct()
         {
-            string jsonPath = Path.Combine(path, "ProductsDetails.json");
-            if (File.Exists(jsonPath))
-            {
-                File.Delete(jsonPath);
-            }
+            
+                string jsonPath = Path.Combine(path, "ProductsDetails.json");
+                if (File.Exists(jsonPath))
+                {
+                    File.Delete(jsonPath);
+                }
+                //else
+                //{
+                //    throw new FileNotFoundException(" product file  is not found");
+                //}
 
-            var records = new List<Product>
+                var records = new List<Product>
             {
             new Product() { Name = "Milk", Price = 42.89m, ProductId = 101,ProductInStock=10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "TRT", Place = "Hjlmar", PhoneNumber = 764175849 } },
             new Product() { Name = "Pepsodent Tootpaste", Price = 60.86m,ProductInStock=15, ProductId = 204, ManufacturerDetails = new Manufacturer() { ManufacturerName = "AAA", Place = "korsvagen", PhoneNumber = 764536231 } },
@@ -181,10 +186,12 @@ namespace ProductApplication.Controller
             new Product() { Name = "Salt", Price = 199.95m, ProductId = 654,ProductInStock=11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } },
             new Product() { Name = "Muffins", Price = 78.95m, ProductId = 760,ProductInStock=10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "SEE", Place = "Qvidingsgatan", PhoneNumber = 764500000 } }
         };
-            IProductRepository productRepository = new ProductRepository();
-            productRepository.SaveProduct(records);
-            Console.WriteLine("*******Products created successfully********");
-            Console.WriteLine();
+                IProductRepository productRepository = new ProductRepository();
+                productRepository.SaveProduct(records);
+                Console.WriteLine("*******Products created successfully********");
+                Console.WriteLine();
+            
+           
         }
 
         /// <summary>
