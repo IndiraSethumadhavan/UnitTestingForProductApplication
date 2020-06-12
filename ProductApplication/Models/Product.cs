@@ -9,8 +9,7 @@ namespace ProductApplication.Models
 
     public class Product
     {
-        public object IsValid;
-
+       
         public string  Name { get; set; }
         public decimal Price { get; set; }
         public long ProductId { get; set; }

@@ -19,7 +19,7 @@ namespace ProductApplication.Repositories
 
         string UpdateProduct(Product product);
 
-        void RemoveProduct(Product product);
+        string RemoveProduct(Product product);
 
 
     }

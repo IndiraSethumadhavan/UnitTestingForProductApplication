@@ -111,14 +111,31 @@ namespace ProductApplication.Repositories
             
         }
 
-        public void RemoveProduct(Product product)
+        public string RemoveProduct(Product product)
         {
 
-
+            string result = string.Empty;
             IEnumerable<Product> productList = GetAllProducts();
-           var productListAfterRemoval = productList.Where(c => c.ProductId != product.ProductId).ToList();
-            SaveProduct(productListAfterRemoval);
+            if(productList.Where(c => c.ProductId == product.ProductId).Any())
+            {
+                var productListAfterRemoval = productList.Where(c => c.ProductId != product.ProductId).ToList();
+                SaveProduct(productListAfterRemoval);
+                result = "Product item is removed successfully";
+            }
 
+            else if(product.ProductId <0)
+            {
+                throw new Exception ("ProductID should be a positive number");
+            }
+            else if(product.ProductId==0)
+            {
+                return "Please provide the valid ProductId";
+            }
+            else
+            {
+               result= "Product id not exist";
+            }
+            return result;
 
         }
        
