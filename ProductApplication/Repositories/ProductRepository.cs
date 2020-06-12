@@ -88,27 +88,35 @@ namespace ProductApplication.Repositories
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             var jsonPath = Path.Combine(path, "ProductsDetails.json");
-
-            var json = File.ReadAllText(jsonPath);
-
-            List<Product> list = JsonConvert.DeserializeObject<List<Product>>(json);
-
-            
-            if(list.Where(x => x.ProductId == product.ProductId).Any())
+            if (File.Exists(jsonPath))
             {
-                Product found = list.Where(x => x.ProductId == product.ProductId).Single();
-                found.Name = "IodisedSalt";
-                found.Price = 100.01m;
-                var updatedJson = JsonConvert.SerializeObject(list);
-                File.WriteAllText(jsonPath, updatedJson);
-                Console.WriteLine("Product is updated successfully");
-                return true;
+                var json = File.ReadAllText(jsonPath);
+
+                List<Product> list = JsonConvert.DeserializeObject<List<Product>>(json);
+
+
+                if (list.Where(x => x.ProductId == product.ProductId).Any())
+                {
+                    Product found = list.Where(x => x.ProductId == product.ProductId).Single();
+                    found.Name = "IodisedSalt";
+                    found.Price = 100.01m;
+                    var updatedJson = JsonConvert.SerializeObject(list);
+                    File.WriteAllText(jsonPath, updatedJson);
+                    Console.WriteLine("Product is updated successfully");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("ProductId is not found");
+                    return false;
+                }
             }
             else
             {
-              Console.WriteLine("ProductId is not found");
-                return false;
+                throw new FileNotFoundException($"The file : {jsonPath}. doesn't exist");
             }
+
+           
             
             
         }

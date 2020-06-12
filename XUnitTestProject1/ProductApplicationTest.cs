@@ -96,6 +96,13 @@ namespace ProductApplicationTestProject
             var updated = productRepository.UpdateProduct();
             Assert.True(updated);
         }
+        //
+        [Fact]
+        public void UpdateProductException()
+        {
+            var productManagement = new ProductManagement();
+            Assert.ThrowsAny<FileNotFoundException>(() => productManagement.UpdateProduct());
+        }
 
 
 
