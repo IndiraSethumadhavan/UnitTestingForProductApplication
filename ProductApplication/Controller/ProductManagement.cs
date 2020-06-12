@@ -68,13 +68,14 @@ namespace ProductApplication.Controller
         /// <summary>
         /// Update Product
         /// </summary>
-        private void UpdateProduct()
+        public bool UpdateProduct()
         {
             productRepository = new ProductRepository();
             Product product1 = new Product() { Name = "Salt", Price = 199.95m, ProductId = 654, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
-            productRepository.UpdateProduct(product1);
+            var update = productRepository.UpdateProduct(product1);
             Console.WriteLine("Product Name and Price are updated successfully");
             Console.WriteLine();
+            return update;
         }
 
         /// <summary>

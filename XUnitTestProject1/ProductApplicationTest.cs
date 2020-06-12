@@ -14,7 +14,7 @@ using Xunit;
 
 namespace ProductApplicationTestProject
 {
-    public class UnitTest1
+    public class ProductApplicationTest
     {
 
         // Product
@@ -65,19 +65,37 @@ namespace ProductApplicationTestProject
         [Fact]
         public void DeleteProductSuccessValidation()
         {
-            Assert.False(false);
+          
         }
 
         [Fact]
         public void DeleteProductFailureValidation()
         {
-            Assert.Equal("h","h");
+         
         }
 
         [Fact]
         public void DeleteProductException()
         {
 
+        }
+        //
+        [Fact]
+        public void UpdateProductFail()
+        {
+            var productRepository = new ProductManagement();
+            var updated = productRepository.UpdateProduct();
+            Assert.False(updated);
+        }
+
+        //
+        [Fact]
+        public void UpdateProductSucces()
+        {
+            var productRepository = new ProductRepository();
+            var product = new Product() { Name = "Milk", Price = 42.89m, ProductId = 101, ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "TRT", Place = "Hjlmar", PhoneNumber = 764175849 } };
+            var updated = productRepository.UpdateProduct(product);
+            Assert.True(updated);
         }
 
 

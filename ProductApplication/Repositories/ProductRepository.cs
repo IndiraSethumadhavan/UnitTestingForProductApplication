@@ -83,7 +83,7 @@ namespace ProductApplication.Repositories
 
         }
 
-        public string UpdateProduct(Product product)
+        public bool UpdateProduct(Product product)
         {
 
             var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
@@ -101,11 +101,13 @@ namespace ProductApplication.Repositories
                 found.Price = 100.01m;
                 var updatedJson = JsonConvert.SerializeObject(list);
                 File.WriteAllText(jsonPath, updatedJson);
-                return "Product is updated successfully";
+                Console.WriteLine("Product is updated successfully");
+                return true;
             }
             else
             {
-                return "ProductId is not found";
+              Console.WriteLine("ProductId is not found");
+                return false;
             }
             
             
