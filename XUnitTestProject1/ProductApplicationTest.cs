@@ -15,7 +15,7 @@ using Xunit;
 
 namespace ProductApplicationTestProject
 {
-    public class UnitTest1
+    public class ProductApplicationTest
     {
 
         // Product
@@ -48,7 +48,6 @@ namespace ProductApplicationTestProject
             Assert.Equal("Product details not available", exception.Message);
 
         }
-
 
         [Fact]
         public void DeleteProductSuccessValidation()
@@ -99,6 +98,31 @@ namespace ProductApplicationTestProject
             string result3 = productManagement.RemoveProduct(product2);
             Assert.Equal("Please provide the valid ProductId", result3);
         }
+        
+        //
+        [Fact]
+        public void UpdateProductFail()
+        {
+            var productRepository = new ProductManagement();
+            var updated = productRepository.UpdateProduct();
+            Assert.False(updated);
+        }
+
+        //
+        [Fact]
+        public void UpdateProductSucces()
+        {
+            var productRepository = new ProductManagement();
+            var updated = productRepository.UpdateProduct();
+            Assert.True(updated);
+        }
+        //
+        [Fact]
+        public void UpdateProductException()
+        {
+            var productManagement = new ProductManagement();
+            Assert.ThrowsAny<FileNotFoundException>(() => productManagement.UpdateProduct());
+        }
 
         private List<Product> BindProducts()
         {
@@ -129,19 +153,6 @@ namespace ProductApplicationTestProject
             };
             return records;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

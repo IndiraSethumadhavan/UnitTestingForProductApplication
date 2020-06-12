@@ -17,7 +17,7 @@ namespace ProductApplication.Repositories
 
         void SaveProduct(List<Product> products);
 
-        string UpdateProduct(Product product);
+        bool UpdateProduct(Product product);
 
         string RemoveProduct(Product product);
 
