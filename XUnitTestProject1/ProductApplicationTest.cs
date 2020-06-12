@@ -92,9 +92,8 @@ namespace ProductApplicationTestProject
         [Fact]
         public void UpdateProductSucces()
         {
-            var productRepository = new ProductRepository();
-            var product = new Product() { Name = "Milk", Price = 42.89m, ProductId = 101, ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "TRT", Place = "Hjlmar", PhoneNumber = 764175849 } };
-            var updated = productRepository.UpdateProduct(product);
+            var productRepository = new ProductManagement();
+            var updated = productRepository.UpdateProduct();
             Assert.True(updated);
         }
 
