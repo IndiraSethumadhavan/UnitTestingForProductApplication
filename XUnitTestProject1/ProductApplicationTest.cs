@@ -71,8 +71,8 @@ namespace ProductApplicationTestProject
             productManagement.CreateProduct(products);
             Product product2 = new Product() { Name = "Milk", Price = 42.89m, ProductId = 2000, ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "TRT", Place = "Hjlmar", PhoneNumber = 764075849 } };
             string result2 = productManagement.RemoveProduct(product2);
-          
             Assert.Equal("Product id not exist", result2);
+            
         }
 
         [Fact]
@@ -80,7 +80,6 @@ namespace ProductApplicationTestProject
         {
 
             ProductManagement productManagement = new ProductManagement();
-
             List<Product> products = BindProducts();
             productManagement.CreateProduct(products);
             Product product2 = new Product() { Name = "SesameOil", Price = 89.50m, ProductId = -1, ProductInStock = 0, ManufacturerDetails = new Manufacturer() { ManufacturerName = "FRE", Place = "Nordstan", PhoneNumber = 764536267 } };
