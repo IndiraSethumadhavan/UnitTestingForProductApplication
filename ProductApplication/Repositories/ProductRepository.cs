@@ -83,9 +83,10 @@ namespace ProductApplication.Repositories
 
         }
 
-        public bool UpdateProduct(Product product)
+        public string UpdateProduct(Product product)
         {
 
+            string result = string.Empty;
             var path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             var jsonPath = Path.Combine(path, "ProductsDetails.json");
             if (File.Exists(jsonPath))
@@ -102,23 +103,25 @@ namespace ProductApplication.Repositories
                     found.Price = 100.01m;
                     var updatedJson = JsonConvert.SerializeObject(list);
                     File.WriteAllText(jsonPath, updatedJson);
-                    Console.WriteLine("Product is updated successfully");
-                    return true;
+                    //Console.WriteLine("Product is updated successfully");
+                    result = "Product Name and Price are updated successfully";
+                }
+                else if (product.ProductId < 0)
+                {
+                    throw new Exception("ProductID should be a positive number");
+                }
+                else if (product.ProductId == 0)
+                {
+                    result = "Please provide the valid ProductId";
                 }
                 else
                 {
-                    Console.WriteLine("ProductId is not found");
-                    return false;
+                    result = "Product id not exist";
                 }
-            }
-            else
-            {
-                throw new FileNotFoundException($"The file : {jsonPath}. doesn't exist");
-            }
 
-           
-            
-            
+            }
+            return result;
+
         }
 
         public string RemoveProduct(Product product)

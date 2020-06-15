@@ -97,30 +97,55 @@ namespace ProductApplicationTestProject
             string result3 = productManagement.RemoveProduct(product2);
             Assert.Equal("Please provide the valid ProductId", result3);
         }
-        
-        //
+
         [Fact]
-        public void UpdateProductFail()
+        public void UpdateProductSucces()
         {
-            var productRepository = new ProductManagement();
-            var updated = productRepository.UpdateProduct();
-            Assert.False(updated);
+
+            ProductManagement productManagement = new ProductManagement();
+            List<Product> products = BindProducts();
+            productManagement.CreateProduct(products);
+            Product product1 = new Product() { Name = "Salt", Price = 199.95m, ProductId = 654, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
+            string result = productManagement.UpdateProduct(product1);
+            Assert.Equal("Product Name and Price are updated successfully", result);
         }
 
         //
         [Fact]
-        public void UpdateProductSucces()
+        public void UpdateProductFail()
         {
-            var productRepository = new ProductManagement();
-            var updated = productRepository.UpdateProduct();
-            Assert.True(updated);
+            ProductManagement productManagement = new ProductManagement();
+            Product product1 = new Product() { Name = "Salt", Price = 199.95m, ProductId = 1000, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
+
+            string result = productManagement.UpdateProduct(product1);
+            
+            Assert.Equal("Product id not exist", result);
         }
+
+        [Fact]
+        public void UpdateProductFailureValidationWithoutPassingtheProductId()
+        {
+            ProductManagement productManagement = new ProductManagement();
+            Product product1 = new Product() { Name = "Salt", Price = 199.95m, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
+
+            string result = productManagement.UpdateProduct(product1);
+
+            Assert.Equal("Please provide the valid ProductId", result);
+        }
+
+
+
         //
         [Fact]
         public void UpdateProductException()
         {
-            var productManagement = new ProductManagement();
-            Assert.ThrowsAny<FileNotFoundException>(() => productManagement.UpdateProduct());
+
+            ProductManagement productManagement = new ProductManagement();
+            List<Product> products = BindProducts();
+            productManagement.CreateProduct(products);
+            Product product = new Product() { Name = "Salt", Price = 199.95m, ProductId = -1, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
+            var throwException = Assert.Throws<System.Exception>(() => productManagement.UpdateProduct(product));
+            Assert.Equal("ProductID should be a positive number", throwException.Message);
         }
         
         private List<Product> BindProducts()
@@ -157,26 +182,14 @@ namespace ProductApplicationTestProject
         [Fact]
         public void ReadProductsSucces()
         {
-            var productManagement = new ProductManagement();
-            var productsReaded = productManagement.GetAllProducts();
+            ProductManagement productManagement = new ProductManagement();
+            List<Product> products = BindProducts();
+            productManagement.CreateProduct(products);
+            //var productManagement = new ProductManagement();
+           var productsReaded= productManagement.GetAllProducts();
             Assert.True(productsReaded);
         }
-        //Failing Test
-        [Fact]
-        public void ReadProdúctsFail()
-        {
-            var productManagement = new ProductManagement();
-            var productsReaded = productManagement.GetAllProducts();
-            Assert.False(productsReaded);
-        }
-        //Read Product throws an exception fail
-        [Fact]
-        public void ReadProdúctsException()
-        {
-            var productManagement = new ProductManagement();
-            Assert.Throws<NullReferenceException>(() => productManagement.GetAllProducts());
-        }
-
+        
     }
 
 }

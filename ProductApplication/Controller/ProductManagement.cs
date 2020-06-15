@@ -42,7 +42,8 @@ namespace ProductApplication.Controller
 
                 GetProductsLessThanStatedPrice(100.01m);
 
-                UpdateProduct();
+                Product product1 = new Product() { Name = "Salt", Price = 199.95m, ProductId = 654, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
+                UpdateProduct(product1);
 
                 Product product2 = new Product() { Name = "SesameOil", Price = 89.50m, ProductId = 809, ProductInStock = 0, ManufacturerDetails = new Manufacturer() { ManufacturerName = "FRE", Place = "Nordstan", PhoneNumber = 764536267 } };
                 RemoveProduct(product2);
@@ -102,12 +103,13 @@ namespace ProductApplication.Controller
         /// <summary>
         /// Update Product
         /// </summary>
-        public bool UpdateProduct()
+        public string UpdateProduct(Product product)
         {
             productRepository = new ProductRepository();
-            Product product1 = new Product() { Name = "Salt", Price = 199.95m, ProductId = 654, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
-            var update = productRepository.UpdateProduct(product1);
-            Console.WriteLine("Product Name and Price are updated successfully");
+            //Product product = new Product() { Name = "Salt", Price = 199.95m, ProductId = 654, ProductInStock = 11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } };
+            var update = productRepository.UpdateProduct(product);
+            //Console.WriteLine("Product Name and Price are updated successfully");
+            Console.WriteLine(update);
             Console.WriteLine();
             return update;
         }
@@ -178,13 +180,14 @@ namespace ProductApplication.Controller
                 foreach (var products in productDetails)
                 {
                     Console.WriteLine($"Name : {products.Name} , Price: {products.Price}, ProductId:{products.ProductId} , ManufacturerDetails : {products.ManufacturerDetails.ManufacturerName} ,ManufacturerDetails : {products.ManufacturerDetails.Place}, ManufacturerDetails : {products.ManufacturerDetails.PhoneNumber}");
+                    
                 }
                 return true;
             }
             else
             {
+                //throw new Exception("Product details not available");
                 return false;
-                throw new NullReferenceException();
             }
            
         }
@@ -212,8 +215,8 @@ namespace ProductApplication.Controller
             }
             else
             {
-                return false;
                 throw new Exception("Product details not available");
+                return false;
             }
             
             
