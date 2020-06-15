@@ -133,11 +133,11 @@ namespace ProductApplication.Repositories
                 result = "Product item is removed successfully";
             }
 
-            else if(product.ProductId <0)
+            else if(product.ProductId < 0)
             {
                 throw new Exception ("ProductID should be a positive number");
             }
-            else if(product.ProductId==0)
+            else if(product.ProductId == 0)
             {
                 return "Please provide the valid ProductId";
             }
