@@ -82,7 +82,9 @@ namespace ProductApplication.Controller
                 new Product() { Name = "Salt", Price = 199.95m, ProductId = 654,ProductInStock=11, ManufacturerDetails = new Manufacturer() { ManufacturerName = "EEE", Place = "Hjlmar", PhoneNumber = 764586231 } },
                 new Product() { Name = "Muffins", Price = 78.95m, ProductId = 760,ProductInStock=10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "SEE", Place = "Qvidingsgatan", PhoneNumber = 764500000 } }
             };
+
             return records;
+           
         }
 
         /// <summary>
@@ -166,22 +168,32 @@ namespace ProductApplication.Controller
         /// <summary>
         /// To get all the product details
         /// </summary>
-        private void GetAllProducts()
+        public bool GetAllProducts()
         {
             productRepository = new ProductRepository();
             IEnumerable<Product> productDetails = productRepository.GetAllProducts();
-            Console.WriteLine("********Products details************");
-            foreach (var products in productDetails)
+            if (productDetails != null)
             {
-                Console.WriteLine($"Name : {products.Name} , Price: {products.Price}, ProductId:{products.ProductId} , ManufacturerDetails : {products.ManufacturerDetails.ManufacturerName} ,ManufacturerDetails : {products.ManufacturerDetails.Place}, ManufacturerDetails : {products.ManufacturerDetails.PhoneNumber}");
+                Console.WriteLine("********Products details************");
+                foreach (var products in productDetails)
+                {
+                    Console.WriteLine($"Name : {products.Name} , Price: {products.Price}, ProductId:{products.ProductId} , ManufacturerDetails : {products.ManufacturerDetails.ManufacturerName} ,ManufacturerDetails : {products.ManufacturerDetails.Place}, ManufacturerDetails : {products.ManufacturerDetails.PhoneNumber}");
+                }
+                return true;
             }
+            else
+            {
+                return false;
+                throw new NullReferenceException();
+            }
+           
         }
 
 
         /// <summary>
         /// Create Product
         /// </summary>
-        public void CreateProduct(List<Product> products)
+        public bool CreateProduct(List<Product> products)
         {
             
                 string jsonPath = Path.Combine(path, "ProductsDetails.json");
@@ -189,17 +201,19 @@ namespace ProductApplication.Controller
                 {
                     File.Delete(jsonPath);
                 }
+
             if (products.Count() > 0)
             {
                 IProductRepository productRepository = new ProductRepository();
                 productRepository.SaveProduct(products);
                 Console.WriteLine("*******Products created successfully********");
                 Console.WriteLine();
+                return true;
             }
             else
             {
+                return false;
                 throw new Exception("Product details not available");
-
             }
             
             

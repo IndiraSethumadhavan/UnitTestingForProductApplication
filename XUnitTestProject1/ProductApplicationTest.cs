@@ -122,7 +122,7 @@ namespace ProductApplicationTestProject
             var productManagement = new ProductManagement();
             Assert.ThrowsAny<FileNotFoundException>(() => productManagement.UpdateProduct());
         }
-
+        
         private List<Product> BindProducts()
         {
             List<Product> records = new List<Product>
@@ -151,6 +151,30 @@ namespace ProductApplicationTestProject
                 new Product() { Name = "Muffins", Price = 78.95m, ProductId = 760,ProductInStock=10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "SEE", Place = "Qvidingsgatan", PhoneNumber = 764500000 } }
             };
             return records;
+        }
+        
+        //Succesful test
+        [Fact]
+        public void ReadProductsSucces()
+        {
+            var productManagement = new ProductManagement();
+            var productsReaded = productManagement.GetAllProducts();
+            Assert.True(productsReaded);
+        }
+        //Failing Test
+        [Fact]
+        public void ReadProdúctsFail()
+        {
+            var productManagement = new ProductManagement();
+            var productsReaded = productManagement.GetAllProducts();
+            Assert.False(productsReaded);
+        }
+        //Read Product throws an exception fail
+        [Fact]
+        public void ReadProdúctsException()
+        {
+            var productManagement = new ProductManagement();
+            Assert.Throws<NullReferenceException>(() => productManagement.GetAllProducts());
         }
 
     }
