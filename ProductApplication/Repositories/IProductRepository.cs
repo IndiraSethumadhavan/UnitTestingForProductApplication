@@ -12,8 +12,6 @@ namespace ProductApplication.Repositories
         IEnumerable<Product> GetAllProducts();
 
         Product GetByProductId(long productId);
-        IEnumerable<Product> GetProductsBySearch(string searchString);
-        IEnumerable<Product> GetProductsLessThanStatedPrice(decimal price);
 
         void SaveProduct(List<Product> products);
 

@@ -72,17 +72,6 @@ namespace ProductApplication.Repositories
         }
 
 
-        public IEnumerable<Store> GetStoresBySearch(string searchString)
-        {
-            IEnumerable<Store> storeList = GetAllStores();
-            IEnumerable<Store> query = from rec in storeList
-                                       where rec.StoreName.Contains(searchString)
-                                       select rec;
-
-
-            return query;
-        }
-
         public void AddProductInStore(Product product, long storeId)
         {
             var jsonPath = Path.Combine(path, "StoreDetails.json");

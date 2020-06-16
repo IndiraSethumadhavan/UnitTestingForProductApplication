@@ -119,29 +119,27 @@ namespace ProductApplication.Controller
         }
 
         /// <summary>
-        /// Get Stores By Search
+        /// Get Stores details by search
         /// </summary>
         /// <param name="searchString"></param>
-        private void GetStoresBySearch(string searchString)
+        public void GetStoresBySearch(string searchString)
         {
-            storeRepository = new StoreRepository();
-            var obj1 = storeRepository.GetStoresBySearch(searchString);
-
-            Console.WriteLine();
-            Console.WriteLine("******Matched record by StoreName*******");
-
-            foreach (Store record in obj1)
+            StoreRepository storeRepository = new StoreRepository();
+            IEnumerable<Store> storeList = storeRepository.GetAllStores();
+            IEnumerable<Store> storeDetails = from rec in storeList
+                                       where rec.StoreName.Contains(searchString)
+                                       select rec;
+            Console.WriteLine("********Store  details************");
+            foreach (var storeData in storeDetails)
             {
-                foreach (var storeProducts in record.ProductDetails)
+                Console.WriteLine($"---Store : {storeData.StoreName} Details ---");
+                foreach (var storeProduct in storeData.ProductDetails)
                 {
-                    Console.WriteLine($"StoreId : {record.StoreId} StoreName: {record.StoreName} ProductName:{storeProducts.Name} Price:{storeProducts.Price} ProductId:{storeProducts.ProductId}ProductInStock:{storeProducts.ProductInStock} ManufacturerName:{storeProducts.ManufacturerDetails.ManufacturerName} PhoneNumber:{storeProducts.ManufacturerDetails.PhoneNumber} Place:{storeProducts.ManufacturerDetails.Place}");
-
+                    Console.WriteLine($"StoreId : {storeData.StoreId} StoreName: {storeData.StoreName} ProductName:{storeProduct.Name} Price:{storeProduct.Price} ProductId:{storeProduct.ProductId} ProductInStock:{storeProduct.ProductInStock} ManufacturerName:{storeProduct.ManufacturerDetails.ManufacturerName} PhoneNumber:{storeProduct.ManufacturerDetails.PhoneNumber} Place:{storeProduct.ManufacturerDetails.Place}");
                 }
-
             }
             Console.WriteLine();
         }
-
 
         /// <summary>
         /// To get all the store details

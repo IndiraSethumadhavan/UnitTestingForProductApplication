@@ -115,38 +115,47 @@ namespace ProductApplication.Controller
         }
 
         /// <summary>
-        /// ReadProduct Products that cost less than the stated price, show a maximum of 10 products
-        /// </summary>
-        /// <param name="price"></param>
-        private void GetProductsLessThanStatedPrice(decimal price)
-        {
-            productRepository = new ProductRepository();
-            var obj2 = productRepository.GetProductsLessThanStatedPrice(price);
-            Console.WriteLine("\n");
-            Console.WriteLine("*************Matched 10 records by ProductPrice**********");
-            foreach (Product record in obj2)
-            {
-                Console.WriteLine($"Name : {record.Name},  Price: {record.Price},  ProductId:{record.ProductId} , ManufacturerName : {record.ManufacturerDetails.ManufacturerName},  Place : {record.ManufacturerDetails.Place},  PhoneNumber : {record.ManufacturerDetails.PhoneNumber}");
-            }
-            Console.WriteLine();
-        }
-
-        /// <summary>
-        /// ReadProduct by part of the product name.
+        /// Get Product by search
         /// </summary>
         /// <param name="searchString"></param>
-        private void GetProductsBySearch(string searchString)
+        public void GetProductsBySearch(string searchString)
         {
-            productRepository = new ProductRepository();
-            var obj1 = productRepository.GetProductsBySearch(searchString);
-            foreach (Product record in obj1)
+            ProductRepository productRepository = new ProductRepository();
+
+            IEnumerable<Product> productList = productRepository.GetAllProducts();
+            IEnumerable<Product> query = from rec in productList
+                                         where rec.Name.Contains(searchString)
+                                         select rec;
+            foreach (Product record in query)
             {
                 Console.WriteLine();
                 Console.WriteLine("******Matched record by ProductName*******");
                 Console.WriteLine($"Name : {record.Name} , Price: {record.Price} , ProductId:{record.ProductId} , ManufacturerName : {record.ManufacturerDetails.ManufacturerName},  Place : {record.ManufacturerDetails.Place},  PhoneNumber : {record.ManufacturerDetails.PhoneNumber}");
-                
+
             }
-           
+
+        }
+
+        /// <summary>
+        /// Get 10 records by ProductPrice
+        /// </summary>
+        /// <param name="price"></param>
+        public void GetProductsLessThanStatedPrice(decimal price)
+        {
+            ProductRepository productRepository = new ProductRepository();
+            IEnumerable<Product> productList =productRepository.GetAllProducts();
+
+            IEnumerable<Product> query2 = productList.Where(c => c.Price < price)
+                                          .Take(10);
+            Console.WriteLine("\n");
+            Console.WriteLine("*************Matched 10 records by ProductPrice**********");
+            foreach (Product record in query2)
+            {
+                Console.WriteLine($"Name : {record.Name},  Price: {record.Price},  ProductId:{record.ProductId} , ManufacturerName : {record.ManufacturerDetails.ManufacturerName},  Place : {record.ManufacturerDetails.Place},  PhoneNumber : {record.ManufacturerDetails.PhoneNumber}");
+            }
+            Console.WriteLine();
+
+
         }
 
         /// <summary>

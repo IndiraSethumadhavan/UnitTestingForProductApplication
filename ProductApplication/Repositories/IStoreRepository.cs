@@ -11,7 +11,6 @@ namespace ProductApplication.Repositories
         IEnumerable<Store> GetAllStores();
 
         Store GetByStoreId(long storeId);
-        IEnumerable<Store> GetStoresBySearch(string searchString);
         
         void SaveStore(List<Store> stores);
 

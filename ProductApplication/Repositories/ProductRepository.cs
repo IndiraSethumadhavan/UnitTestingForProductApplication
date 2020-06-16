@@ -55,33 +55,6 @@ namespace ProductApplication.Repositories
 
         }
 
-        
-
-        public IEnumerable<Product> GetProductsBySearch(string searchString)
-        {
-            IEnumerable<Product> productList = GetAllProducts();
-            IEnumerable<Product> query = from rec in productList
-                                         where rec.Name.Contains(searchString)
-                                         select rec;
-
-
-            return query;
-
-
-        }
-
-        public IEnumerable<Product> GetProductsLessThanStatedPrice(decimal price)
-        {
-            IEnumerable<Product> productList = GetAllProducts();
-
-            IEnumerable<Product> query2 = productList.Where(c => c.Price < price)
-                                          .Take(10);
-
-
-            return query2;
-
-
-        }
 
         public string UpdateProduct(Product product)
         {
