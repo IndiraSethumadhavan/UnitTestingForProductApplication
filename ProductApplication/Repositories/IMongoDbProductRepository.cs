@@ -16,7 +16,7 @@ namespace ProductApplication.Repositories
         string UpdateProduct(MongoProduct product);
 
         string RemoveProduct(MongoProduct product);
-        void InsertProduct(string tableName, MongoProduct product);
+        void InsertProduct(string tableName, List<MongoProduct> product);
 
     }
 }

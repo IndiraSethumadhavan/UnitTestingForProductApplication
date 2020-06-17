@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.VisualBasic;
 using MongoDB.Driver;
@@ -39,10 +40,11 @@ namespace ProductApplication.Repositories
             throw new NotImplementedException();
         }
 
-        public void InsertProduct(string tableName, MongoProduct product)
+        public void InsertProduct(string tableName, List<MongoProduct> product)
         {
               var collection = database.GetCollection<MongoProduct>(tableName);
-            collection.InsertOne(product);
+            //collection.InsertOne(product);
+            collection.InsertMany(product);
         }
 
         public string RemoveProduct(MongoProduct product)

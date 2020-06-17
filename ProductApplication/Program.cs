@@ -32,9 +32,25 @@ namespace ProductApplication
 
             IMongoDbProductRepository mongoRep = new MongoDbProductRepository();
             IEnumerable<MongoProduct> productList = mongoRep.GetAllProducts();
-            
+            List<MongoProduct> records = new List<MongoProduct>
+            {
+               new MongoProduct { ProductId = "5eea1bf08ad05d339877dee3", Name = "Milk", Price = 123, ProductInStock = 12, ManufacturerDetails = new Manufacturer() { ManufacturerName = "III", PhoneNumber = 762892451, Place = "Redbergplasten" } },
+               new MongoProduct { ProductId = "6ffa1bf08ad05d339877dee3", Name = "SoyaMilk", Price = 345, ProductInStock = 12, ManufacturerDetails = new Manufacturer() { ManufacturerName = "VVV", PhoneNumber = 762892400, Place = "Hjlmar" } }
 
-            mongoRep.InsertProduct("Products",new MongoProduct { ProductId= "5eea1bf08ad05d339877dee3", Name="Milk",Price=123,ProductInStock=12});
+        };
+
+
+            mongoRep.InsertProduct("Products", records);
+            //mongoRep.InsertProduct("Products", new MongoProduct(){ ProductId = "5eea1bf08ad05d339877dee3", Name = "Milk", Price = 123, ProductInStock = 12, ManufacturerDetails = new Manufacturer() { ManufacturerName = "III", PhoneNumber = 762892451, Place = "Redbergplasten" } });
+
+
+            //mongoRep.InsertProduct("Products",new MongoProduct { ProductId = "5eea1bf08ad05d339877dee3", Name = "Milk", Price = 123, ProductInStock = 12, ManufacturerDetails = new Manufacturer() { ManufacturerName = "III", PhoneNumber = 762892451, Place = "Redbergplasten" } });
+            //mongoRep.InsertProduct("Products", 
+            //    new MongoProduct() { ProductId = "5eea1bf08ad05d339877dee3", Name = "Milk", Price = 123, ProductInStock = 12, ManufacturerDetails = new Manufacturer() { ManufacturerName = "III", PhoneNumber = 762892451, Place = "Redbergplasten" } },
+
+            //new MongoProduct() { ProductId = "5eea1bf08ad05d339877dee3", Name = "SoyaMilk", Price = 345, ProductInStock = 12, ManufacturerDetails = new Manufacturer() { ManufacturerName = "VVV", PhoneNumber = 762892451, Place = "Redbergplasten" } });
+
+
             #endregion
 
 
