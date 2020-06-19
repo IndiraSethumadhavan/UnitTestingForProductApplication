@@ -9,20 +9,22 @@ using ProductApplication.MongoDb_Models;
 
 namespace ProductApplication.Repositories
 {
+
+
     public class MongoDbProductRepository : IMongoDbProductRepository
     {
 
 
         private MongoClient client;
-            private IMongoDatabase database;
-            private IMongoCollection<MongoProduct> collection;
- 
+        private IMongoDatabase database;
+        private IMongoCollection<MongoProduct> collection;
+
         public MongoDbProductRepository()
         {
 
-             client = new MongoClient("mongodb://localhost:27017");
-             database = client.GetDatabase("Warehouse");
-             collection = database.GetCollection<MongoProduct>("Products");
+            client = new MongoClient("mongodb://localhost:27017");
+            database = client.GetDatabase("Warehouse");
+            collection = database.GetCollection<MongoProduct>("Products");
 
 
         }
@@ -33,41 +35,51 @@ namespace ProductApplication.Repositories
             return allProducts.ToEnumerable();
         }
 
-        
+
 
         public MongoProduct GetByProductId(string productId)
         {
-            throw new NotImplementedException();
+            
+            MongoProduct record = collection.Find(Builders<MongoProduct>.Filter.Eq(x => x.ProductId, productId)).FirstOrDefault();
+
+            return record;
         }
 
-        public void InsertProduct(string tableName, List<MongoProduct> product)
+
+        public void InsertProduct(MongoProduct product)
         {
-              var collection = database.GetCollection<MongoProduct>(tableName);
-            //collection.InsertOne(product);
-            collection.InsertMany(product);
+            collection.InsertOne(product);
         }
+
+
 
         public string RemoveProduct(MongoProduct product)
         {
-            throw new NotImplementedException();
+
+            collection.DeleteOne(s => s.Name == product.Name);
+            return "Product is removed successfully :" + product.Name;
         }
 
-        
+
 
         public void SaveProduct(List<MongoProduct> products)
         {
             throw new NotImplementedException();
         }
 
-        
+
+
+
 
         public string UpdateProduct(MongoProduct product)
         {
-            throw new NotImplementedException();
+            
+            collection.ReplaceOne(p => p.Name == product.Name, product);
+
+            return "Product Price and Manufacturer details is updated successfully";
+
+
+
         }
-
-       
-
-        
     }
 }

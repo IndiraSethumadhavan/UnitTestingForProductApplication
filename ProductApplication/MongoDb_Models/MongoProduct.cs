@@ -8,11 +8,10 @@ using ProductApplication.Models;
 
 namespace ProductApplication.MongoDb_Models
 {
+    [BsonIgnoreExtraElements]
     public class MongoProduct
     {
-
         [BsonRepresentation(BsonType.ObjectId)]
-
         public string ProductId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
