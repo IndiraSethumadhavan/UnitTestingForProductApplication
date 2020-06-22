@@ -13,7 +13,7 @@ namespace ProductApplication.Controller
         public void MongoDbProdManagment()
         {
             InsertProduct();
-            Console.WriteLine("********MongoDB implementation"********);
+            Console.WriteLine("********MongoDB implementation********");
            RemoveProduct(new MongoProduct { Name = "Pepsodent Tootpaste", ProductId = "6eea1bf08ad05d339877def5", Price = 50.37m, ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "ERE", PhoneNumber = 762892333, Place = "Redbergplasten" } });
             UpdateProduct(new MongoProduct { Name = "Toothbrush", ProductId = "5eecbb1daf356825443869e6", Price = 50.78m, ProductInStock = 12, ManufacturerDetails = new Manufacturer() { ManufacturerName = "III", PhoneNumber = 762892530, Place = "Hjlmar" } });
             GetAllProducts();

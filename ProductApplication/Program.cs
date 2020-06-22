@@ -10,6 +10,7 @@ using MongoDB.Driver;
 using ProductApplication.Models;
 using ProductApplication.Repositories;
 using ProductApplication.MongoDb_Models;
+using MongoDB.Bson;
 
 namespace ProductApplication
 {
@@ -20,18 +21,18 @@ namespace ProductApplication
 
             #region JsonFileOperations
             ////Product Management
-            //ProductManagement prod = new ProductManagement();
-            //prod.ProdManagment();
+            ProductManagement prod = new ProductManagement();
+            prod.ProdManagment();
 
             ////Store Management
-            //StoreManagement store = new StoreManagement();
-            //store.StoresManagment();
+            StoreManagement store = new StoreManagement();
+            store.StoresManagment();
             #endregion
 
             #region MongoDbOperations
             //MongoDbProductManagement
-            MongoDbProductManagement prod = new MongoDbProductManagement();
-            prod.MongoDbProdManagment();
+            MongoDbProductManagement product = new MongoDbProductManagement();
+            product.MongoDbProdManagment();
             #endregion
 
 
