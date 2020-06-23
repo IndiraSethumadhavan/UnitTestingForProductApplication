@@ -8,18 +8,18 @@ using ProductApplication.Models;
 
 namespace ProductApplication.MongoDb_Models
 {
-    [BsonIgnoreExtraElements]
+    
     public class MongoProduct
     {
+        
         [BsonRepresentation(BsonType.ObjectId)]
-        public string ProductId { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-       
         public Manufacturer ManufacturerDetails { get; set; }
+        public int ProductInStock { get; set; }  
 
-        public int ProductInStock { get; set; }
-        
+
     }
 }
 

@@ -195,7 +195,7 @@ namespace ProductApplication.Controller
             }
             else
             {
-                //throw new Exception("Product details not available");
+               
                 return false;
             }
            
@@ -225,11 +225,7 @@ namespace ProductApplication.Controller
             else
             {
                 throw new Exception("Product details not available");
-                return false;
             }
-            
-            
-           
         }
 
         /// <summary>

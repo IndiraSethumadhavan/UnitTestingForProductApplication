@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
-using System.IO;
-using ProductApplication;
-using ProductApplication.Controller;
-using MongoDB.Driver;
+﻿
 using ProductApplication.Models;
+using MongoDB.Driver;
 using ProductApplication.Repositories;
+using ProductApplication.Controller;
 using ProductApplication.MongoDb_Models;
 using MongoDB.Bson;
+
 
 namespace ProductApplication
 {
@@ -18,13 +13,12 @@ namespace ProductApplication
     {
         static void Main(string[] args)
         {
-
             #region JsonFileOperations
-            ////Product Management
+            //Product Management
             ProductManagement prod = new ProductManagement();
             prod.ProdManagment();
 
-            ////Store Management
+            //Store Management
             StoreManagement store = new StoreManagement();
             store.StoresManagment();
             #endregion
@@ -33,6 +27,9 @@ namespace ProductApplication
             //MongoDbProductManagement
             MongoDbProductManagement product = new MongoDbProductManagement();
             product.MongoDbProdManagment();
+
+            MongoDbStoreManagment mongoDbStoreManagment = new MongoDbStoreManagment();
+            mongoDbStoreManagment.MongodbStoreManagement();
             #endregion
 
 

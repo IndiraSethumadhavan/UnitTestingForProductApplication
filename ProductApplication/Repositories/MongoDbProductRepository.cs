@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualBasic;
 using MongoDB.Driver;
+using MongoDB.Bson;
 using ProductApplication.Models;
 using ProductApplication.MongoDb_Models;
 
@@ -23,7 +24,7 @@ namespace ProductApplication.Repositories
         {
 
             client = new MongoClient("mongodb://localhost:27017");
-            database = client.GetDatabase("Warehouse");
+            database = client.GetDatabase("Läger");
             collection = database.GetCollection<MongoProduct>("Products");
 
 
@@ -32,6 +33,8 @@ namespace ProductApplication.Repositories
         public IEnumerable<MongoProduct> GetAllProducts()
         {
             var allProducts = collection.Find(Builders<MongoProduct>.Filter.Empty);
+            
+           
             return allProducts.ToEnumerable();
         }
 
@@ -40,7 +43,7 @@ namespace ProductApplication.Repositories
         public MongoProduct GetByProductId(string productId)
         {
             
-            MongoProduct record = collection.Find(Builders<MongoProduct>.Filter.Eq(x => x.ProductId, productId)).FirstOrDefault();
+            MongoProduct record = collection.Find(Builders<MongoProduct>.Filter.Eq(x => x.Id, productId)).FirstOrDefault();
 
             return record;
         }
@@ -48,8 +51,18 @@ namespace ProductApplication.Repositories
 
         public void InsertProduct(MongoProduct product)
         {
-            collection.InsertOne(product);
+            
+            var foundItems = collection.Find<MongoProduct>(x => x.Name == product.Name).Any();
+            if(!foundItems)
+                collection.InsertOne(product);
         }
+
+
+        //public void DropCollection()
+        //{
+        //    database.DropCollection("Products");
+            
+        //}
 
 
 
@@ -67,19 +80,14 @@ namespace ProductApplication.Repositories
             throw new NotImplementedException();
         }
 
-
-
-
-
         public string UpdateProduct(MongoProduct product)
         {
-            
+
             collection.ReplaceOne(p => p.Name == product.Name, product);
+            
+
 
             return "Product Price and Manufacturer details is updated successfully";
-
-
-
         }
     }
 }
