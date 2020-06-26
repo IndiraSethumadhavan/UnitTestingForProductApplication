@@ -15,10 +15,7 @@ namespace ProductApplication.MongoDb_Models
         public List<MongoProduct> ProductDetails { get; set; } = new List<MongoProduct>();
 
         public MongoStore() { }
-        public override string ToString()
-        {
-            return $"Store Id : {Id}, Store Name : {StoreName}, Products: {ProductDetails.Count}";
-        }
+        
     }
     
 }

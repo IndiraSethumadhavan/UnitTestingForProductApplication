@@ -18,7 +18,5 @@ namespace ProductApplication.Repositories
         string RemoveProduct(MongoProduct product);
 
         void InsertProduct(MongoProduct product);
-        //void DropCollection();
-
     }
 }

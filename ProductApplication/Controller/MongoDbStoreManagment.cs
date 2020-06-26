@@ -1,5 +1,6 @@
 ﻿using ProductApplication.Models;
 using ProductApplication.MongoDb_Models;
+using ProductApplication.MongodbFilter;
 using ProductApplication.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,21 @@ namespace ProductApplication.Controller
             var productList = new List<MongoProduct>()
             {
             new MongoProduct (){ Name = "Salt", Price = 34.57m, ProductInStock = 8, ManufacturerDetails = new Manufacturer() { ManufacturerName = "SSS", PhoneNumber = 762892347, Place = "Chalmers" } },
-           new MongoProduct () { Name = "Muffins", Price = 50.37m, ProductInStock = 16, ManufacturerDetails = new Manufacturer() { ManufacturerName = "AWE", PhoneNumber = 762892856, Place = "Hjlmar" } }
+            new MongoProduct () { Name = "Muffins", Price = 50.37m, ProductInStock = 16, ManufacturerDetails = new Manufacturer() { ManufacturerName = "AWE", PhoneNumber = 762892856, Place = "Hjlmar" } }
 
-        };
-            UpdateStore(new MongoStore() { Id = "5ef1f771fc6b110ec4c1ff99", StoreName = "Pressbyran", StoreAddress = "777 Chalmers" ,PinCode=2222,ProductDetails=productList });
+              };
+            UpdateStore(new MongoStore() { Id = "5ef5c31458ed8642580d7cc3", StoreName = "Pressbyran", StoreAddress = "777 Chalmers" ,PinCode=2222,ProductDetails=productList });
 
             GetAllStores();
-            GetByStoreId("5ef1f771fc6b110ec4c1ff94");
+            GetByStoreId("5ef5c31458ed8642580d7cbf");
+
+            //StoreFilter
+            IMongoDbProductRepository productRepository = new MongoDbProductRepository();
+            IMongoStore storeRepository = new MongoDbStoreRepository();
+            ProductFilter storeFilter = new ProductFilter(productRepository, storeRepository);
+
+            //searchBy Store
+            storeFilter.GetStoresBySearch("Lidl");
         }
         public void InsertStore()
         {
@@ -63,7 +72,8 @@ namespace ProductApplication.Controller
             Console.WriteLine("\n\t********Stores details************\n");
             foreach (var store in StoreList)
             {
-                foreach(var productDetails in store.ProductDetails)
+                Console.WriteLine($"---Store : {store.StoreName} Details ---");
+                foreach (var productDetails in store.ProductDetails)
                 {
 
                     Console.WriteLine($"StoreId :{store.Id} StoreName: {store.StoreName} StoreAddress:{store.StoreAddress} ProductName: {productDetails.Name} Price:{productDetails.Price} ProductInStock:{productDetails.ProductInStock} ManufacturerName:{productDetails.ManufacturerDetails.ManufacturerName} PhoneNumber:{productDetails.ManufacturerDetails.PhoneNumber} Place:{productDetails.ManufacturerDetails.Place}");

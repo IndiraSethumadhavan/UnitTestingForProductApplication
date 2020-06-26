@@ -12,6 +12,5 @@ namespace ProductApplication.Models
         public List<Product> ProductDetails { get; set; }
 
 
-
     }
 }

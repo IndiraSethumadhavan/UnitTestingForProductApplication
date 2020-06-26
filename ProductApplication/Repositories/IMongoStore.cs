@@ -18,6 +18,6 @@ namespace ProductApplication.Repositories
         string RemoveStore(MongoStore store);
 
         void InsertStore(MongoStore store);
-        //void DropCollection();
+        
     }
 }

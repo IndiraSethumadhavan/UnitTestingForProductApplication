@@ -44,11 +44,6 @@ namespace ProductApplication.Repositories
             return "Store is removed successfully :" + store.StoreName;
         }
 
-        //public void DropCollection()
-        //{
-        //    database.DropCollection("Stores");
-        //}
-
         public void SaveStore(List<MongoStore> stores)
         {           
         }
@@ -57,7 +52,7 @@ namespace ProductApplication.Repositories
         {
             collection.ReplaceOne(p => p.StoreName == store.StoreName, store);
 
-            return "Store Name and StoreAddress details are updated successfully";
+            return "Store Address and Store PinCode details are updated successfully";
         }
     }
 }

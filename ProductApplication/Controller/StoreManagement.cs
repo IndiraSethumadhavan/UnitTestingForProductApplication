@@ -90,7 +90,7 @@ namespace ProductApplication.Controller
         {
             storeRepository = new StoreRepository();
             ProductRepository productRepository = new ProductRepository();
-            Product product6 = productRepository.GetByProductId(307);
+            Product product6 = productRepository.GetByProductId(204);
             storeRepository.RemoveProductInStore(product6, 9999);
             Console.WriteLine("Product is removed successfully from store");
             Console.WriteLine();
@@ -124,12 +124,13 @@ namespace ProductApplication.Controller
         /// <param name="searchString"></param>
         public void GetStoresBySearch(string searchString)
         {
-            StoreRepository storeRepository = new StoreRepository();
+             storeRepository = new StoreRepository();
             IEnumerable<Store> storeList = storeRepository.GetAllStores();
             IEnumerable<Store> storeDetails = from rec in storeList
                                        where rec.StoreName.Contains(searchString)
                                        select rec;
-            Console.WriteLine("********Store  details************");
+            Console.WriteLine("\n");
+            Console.WriteLine("********Matched record by StoreName************");
             foreach (var storeData in storeDetails)
             {
                 Console.WriteLine($"---Store : {storeData.StoreName} Details ---");

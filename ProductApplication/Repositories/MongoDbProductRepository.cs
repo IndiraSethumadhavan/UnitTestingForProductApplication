@@ -32,8 +32,8 @@ namespace ProductApplication.Repositories
 
         public IEnumerable<MongoProduct> GetAllProducts()
         {
-            var allProducts = collection.Find(Builders<MongoProduct>.Filter.Empty);
             
+            var allProducts = collection.Find(Builders<MongoProduct>.Filter.Empty);
            
             return allProducts.ToEnumerable();
         }
@@ -56,14 +56,6 @@ namespace ProductApplication.Repositories
             if(!foundItems)
                 collection.InsertOne(product);
         }
-
-
-        //public void DropCollection()
-        //{
-        //    database.DropCollection("Products");
-            
-        //}
-
 
 
         public string RemoveProduct(MongoProduct product)

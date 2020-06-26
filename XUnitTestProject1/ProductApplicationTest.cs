@@ -17,12 +17,6 @@ namespace ProductApplicationTestProject
 {
     public class ProductApplicationTest
     {
-
-        // Product
-        // create Product-2 testcases-Indira
-        //read Product-3 testcases-Tatjana
-        //update Product-3 testcase-Abde
-        //delete Product -4 testcase-Indira
         
         //Create Product
         [Fact]
@@ -48,7 +42,7 @@ namespace ProductApplicationTestProject
             Assert.Equal("Product details not available", exception.Message);
 
         }
-
+        //Delete Product
         [Fact]
         public void DeleteProductSuccessValidation()
         {
@@ -98,6 +92,7 @@ namespace ProductApplicationTestProject
             Assert.Equal("Please provide the valid ProductId", result3);
         }
 
+        //Update Product
         [Fact]
         public void UpdateProductSucces()
         {
@@ -134,8 +129,7 @@ namespace ProductApplicationTestProject
         }
 
 
-
-        //
+        
         [Fact]
         public void UpdateProductException()
         {
@@ -178,7 +172,8 @@ namespace ProductApplicationTestProject
             return records;
         }
         
-        //Succesful test
+        //Read Product
+
         [Fact]
         public void ReadProductsSucces()
         {
