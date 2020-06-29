@@ -55,7 +55,7 @@ namespace ProductApplication.Controller
 
 
             private void InsertProduct()
-        {
+            {
             
             IMongoDbProductRepository mongoRep = new MongoDbProductRepository();
 
@@ -83,7 +83,7 @@ namespace ProductApplication.Controller
             mongoRep.InsertProduct(new MongoProduct { Name = "Muffins", Price = 50.37m, ProductInStock = 16, ManufacturerDetails = new Manufacturer() { ManufacturerName = "AWE", PhoneNumber = 762892856, Place = "Hjlmar" } });
             mongoRep.InsertProduct(new MongoProduct { Name = "Pepsodent Tootpaste", Price = 50.37m, ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "ERE", PhoneNumber = 762892333, Place = "Redbergplasten" } });
 
-        }
+            }
 
         public string RemoveProduct(MongoProduct product)
         {
