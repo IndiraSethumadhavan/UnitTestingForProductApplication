@@ -16,38 +16,45 @@ namespace ProductApplication.Controller
    public class MongoDbProductManagement
     {
 
-        
+
         public void MongoDbProdManagment()
         {
-
-            InsertProduct();
-            Console.WriteLine("********Product MongoDB implementation********");
-            RemoveProduct(new MongoProduct { Name = "Pepsodent Tootpaste", Price = 50.37m, ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "ERE", PhoneNumber = 762892333, Place = "Redbergplasten" } });
-            UpdateProduct(new MongoProduct { Name = "Toothbrush", Price = 50.78m, Id = "5ef5c2a3ac609330f4f799bf", ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "TTT", PhoneNumber = 762892530, Place = "Hjalmar" } });
-            GetAllProducts();
-            GetByProductId("5ef5c2a2ac609330f4f799b1");
-            //ProductFilter-Search by ProductName
-            IMongoDbProductRepository productRep = new MongoDbProductRepository();
-            IMongoStore storeRep = new MongoDbStoreRepository();
-            ProductFilter productFilter = new ProductFilter(productRep, storeRep);
-            var searchProduct = productFilter.SearchProductByName("Vaseline").FirstOrDefault();
-            Console.WriteLine();
-            Console.WriteLine("********Matched record by ProductName************");
-            Console.WriteLine($"Name : {searchProduct.Name} , ProductId:{searchProduct.Id} ,Price: {searchProduct.Price},ProductInStock:{searchProduct.ProductInStock}, ManufacturerDetails : {searchProduct.ManufacturerDetails.ManufacturerName} ,ManufacturerDetails : {searchProduct.ManufacturerDetails.Place}, ManufacturerDetails : {searchProduct.ManufacturerDetails.PhoneNumber}");
-            //ProductFilter-ProductsCostingLessThan
-            Console.WriteLine("********Matched 10 records by ProductPrice ************");
-           var matchedProduct = productFilter.ProductsCostingLessThan(130.12m);
-            foreach (var records in matchedProduct)
+            try
             {
-                Console.WriteLine($"Name : {records.Name} , ProductId:{records.Id} ,Price: {records.Price},ProductInStock:{records.ProductInStock}, ManufacturerDetails : {records.ManufacturerDetails.ManufacturerName} ,ManufacturerDetails : {records.ManufacturerDetails.Place}, ManufacturerDetails : {records.ManufacturerDetails.PhoneNumber}");
+                InsertProduct();
+                Console.WriteLine("********Product MongoDB implementation********");
+                RemoveProduct(new MongoProduct { Name = "Pepsodent Tootpaste", Price = 50.37m, ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "ERE", PhoneNumber = 762892333, Place = "Redbergplasten" } });
+                UpdateProduct(new MongoProduct { Name = "Toothbrush", Price = 50.78m, Id = "5ef5c2a3ac609330f4f799bf", ProductInStock = 10, ManufacturerDetails = new Manufacturer() { ManufacturerName = "TTT", PhoneNumber = 762892530, Place = "Hjalmar" } });
+                GetAllProducts();
+                GetByProductId("5ef5c2a2ac609330f4f799b1");
+                //ProductFilter-Search by ProductName
+                IMongoDbProductRepository productRep = new MongoDbProductRepository();
+                IMongoStore storeRep = new MongoDbStoreRepository();
+                ProductFilter productFilter = new ProductFilter(productRep, storeRep);
+                var searchProduct = productFilter.SearchProductByName("Vaseline").FirstOrDefault();
+                Console.WriteLine();
+                Console.WriteLine("********Matched record by ProductName************");
+                Console.WriteLine($"Name : {searchProduct.Name} , ProductId:{searchProduct.Id} ,Price: {searchProduct.Price},ProductInStock:{searchProduct.ProductInStock}, ManufacturerDetails : {searchProduct.ManufacturerDetails.ManufacturerName} ,ManufacturerDetails : {searchProduct.ManufacturerDetails.Place}, ManufacturerDetails : {searchProduct.ManufacturerDetails.PhoneNumber}");
+                //ProductFilter-ProductsCostingLessThan
+                Console.WriteLine("********Matched 10 records by ProductPrice ************");
+                var matchedProduct = productFilter.ProductsCostingLessThan(130.12m);
+                foreach (var records in matchedProduct)
+                {
+                    Console.WriteLine($"Name : {records.Name} , ProductId:{records.Id} ,Price: {records.Price},ProductInStock:{records.ProductInStock}, ManufacturerDetails : {records.ManufacturerDetails.ManufacturerName} ,ManufacturerDetails : {records.ManufacturerDetails.Place}, ManufacturerDetails : {records.ManufacturerDetails.PhoneNumber}");
 
+                }
+                //ProductFilter-Manufacturerdetails
+                productFilter.ListOfManufacturersWithProductCount();
             }
-            //ProductFilter-Manufacturerdetails
-            productFilter.ListOfManufacturersWithProductCount();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
 
-        private void InsertProduct()
+
+            private void InsertProduct()
         {
             
             IMongoDbProductRepository mongoRep = new MongoDbProductRepository();
