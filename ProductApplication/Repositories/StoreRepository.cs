@@ -107,11 +107,7 @@ namespace ProductApplication.Repositories
             var jsonPath = Path.Combine(path, "StoreDetails.json");
 
             var json = File.ReadAllText(jsonPath);
-
-            //Product product8 = new Product();
             List<Store> storeList = JsonConvert.DeserializeObject<List<Store>>(json);
-            //var storeLst = storeList.AsQueryable();
-            List<Store> result = new List<Store>();
             foreach (var storeItem in storeList)
             {
                 if(storeItem.ProductDetails.Where(p=>p.ProductId== product.ProductId && p.ProductInStock >0).Any())

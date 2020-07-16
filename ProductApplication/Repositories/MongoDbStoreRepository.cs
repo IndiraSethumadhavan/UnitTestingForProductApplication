@@ -44,10 +44,6 @@ namespace ProductApplication.Repositories
             return "Store is removed successfully :" + store.StoreName;
         }
 
-        public void SaveStore(List<MongoStore> stores)
-        {           
-        }
-
         public string UpdateStore(MongoStore store)
         {
             collection.ReplaceOne(p => p.StoreName == store.StoreName, store);

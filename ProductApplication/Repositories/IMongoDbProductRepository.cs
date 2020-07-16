@@ -11,8 +11,6 @@ namespace ProductApplication.Repositories
 
         MongoProduct GetByProductId(string productId);
 
-        void SaveProduct(List<MongoProduct> products);
-
         string UpdateProduct(MongoProduct product);
 
         string RemoveProduct(MongoProduct product);

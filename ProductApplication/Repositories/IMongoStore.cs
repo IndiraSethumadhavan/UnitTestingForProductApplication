@@ -11,8 +11,6 @@ namespace ProductApplication.Repositories
 
         MongoStore GetByStoreId(string storeId);
 
-        void SaveStore(List<MongoStore> stores);
-
         string UpdateStore(MongoStore store);
 
         string RemoveStore(MongoStore store);

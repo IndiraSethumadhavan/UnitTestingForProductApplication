@@ -66,12 +66,6 @@ namespace ProductApplication.Repositories
         }
 
 
-
-        public void SaveProduct(List<MongoProduct> products)
-        {
-            throw new NotImplementedException();
-        }
-
         public string UpdateProduct(MongoProduct product)
         {
 
